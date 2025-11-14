@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:with_eat/core/validator_util.dart';
 
-class PwTextField extends StatelessWidget {
+class NicknameTextField extends StatelessWidget {
+  NicknameTextField({required this.controller});
   final TextEditingController controller;
-  final String? Function(String?)? validator;
-  PwTextField({required this.controller, this.validator});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
-        hintText: '비밀번호를 입력해 주세요',
+        hintText: '닉네임을 입력해 주세요',
         hintStyle: TextStyle(color: Colors.grey),
         filled: true,
         fillColor: Colors.white,
@@ -29,8 +28,7 @@ class PwTextField extends StatelessWidget {
           borderSide: BorderSide(color: Colors.grey, width: 1.5),
         ),
       ),
-      obscureText: true,
-      validator: validator ?? ValidatorUtil.validatorPassword,
+      validator: ValidatorUtil.validatorNickname,
     );
   }
 }
