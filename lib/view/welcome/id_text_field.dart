@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:with_eat/core/validator_util.dart';
 
 class IdTextField extends StatelessWidget {
-  IdTextField({required this.controller});
   final TextEditingController controller;
+  final String? Function(String?)? validator;
+  IdTextField({required this.controller, this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class IdTextField extends StatelessWidget {
           borderSide: BorderSide(color: Colors.grey, width: 1.5),
         ),
       ),
-      validator: ValidatorUtil.validatorId,
+      validator: validator ?? ValidatorUtil.validatorId,
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:with_eat/view/home/home_page.dart';
+import 'package:with_eat/view/profile_setting/profile_setting.dart';
 
 class LoginKakao extends StatelessWidget {
   const LoginKakao({super.key});
@@ -157,7 +157,7 @@ class LoginKakao extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
+                      MaterialPageRoute(builder: (context) => ProfileSetting()),
                     );
                   },
                   child: Text(
