@@ -6,6 +6,7 @@ class AddDetail {
   String restName = "";
   String description = "";
   List<String> images = [];
+  DateTime reservedAt = DateTime.now();
 }
 
 class AddPost extends StatefulWidget {
@@ -145,7 +146,7 @@ Widget displayView(
             height: 60,
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
+              border: Border.all(color: Colors.black12),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Align(
@@ -181,7 +182,7 @@ Widget displayView(
       Container(
         height: 200,
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey, width: 2),
+          border: Border.all(color: Colors.black12, width: 2),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Center(child: Text('지도 영역')),
@@ -190,7 +191,7 @@ Widget displayView(
       Container(
         height: 50,
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey, width: 2),
+          border: Border.all(color: Colors.black12, width: 2),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Center(child: Text('일정 선택 영역')),
@@ -218,7 +219,7 @@ InputDecoration styleInputDecoration() {
     // contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
     // ## 포커스가 없을 때 (기본) 테두리 색상
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey, width: 2),
+      borderSide: BorderSide(color: Colors.black12, width: 2),
       borderRadius: BorderRadius.circular(10.0),
     ),
     // ## 포커스가 있을 때 (선택되었을 때) 테두리 색상
