@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:with_eat/core/validator_util.dart';
 
-class LoginTextField extends StatelessWidget {
-  final String hintText;
-  final bool obscureText;
-  final TextEditingController? controller;
-
-  const LoginTextField({
-    Key? key,
-    required this.hintText,
-    this.obscureText = false,
-    this.controller,
-  }) : super(key: key);
+class IdTextField extends StatelessWidget {
+  IdTextField({required this.controller});
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
-      obscureText: obscureText,
       decoration: InputDecoration(
-        hintText: hintText,
+        hintText: '아이디를 입력해 주세요',
         hintStyle: TextStyle(color: Colors.grey),
         filled: true,
         fillColor: Colors.white,
@@ -33,12 +25,10 @@ class LoginTextField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-            color: const Color.fromARGB(255, 89, 89, 89),
-            width: 1.5,
-          ),
+          borderSide: BorderSide(color: Colors.grey, width: 1.5),
         ),
       ),
+      validator: ValidatorUtil.validatorId,
     );
   }
 }
