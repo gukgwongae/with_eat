@@ -6,7 +6,6 @@ part 'post_detail.g.dart';
 @freezed
 abstract class PostDetail with _$PostDetail {
   factory PostDetail({
-    required String id,
     required String hostId,
     required String hostNickname,
     required String hostProfileImage,

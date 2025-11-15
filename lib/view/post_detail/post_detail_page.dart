@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:with_eat/view/post_detail/widgets/post_detail_app_bar.dart';
 import 'package:with_eat/view/post_detail/widgets/post_detail_bottom_bar.dart';
-import 'package:with_eat/view/post_detail/widgets/post_detail_image.dart';
 // import 'package:with_eat/view/post_detail/widgets/post_detail_info.dart';
 import 'package:with_eat/view/post_detail/widgets/post_detail_map.dart';
 import 'package:with_eat/view/post_detail/widgets/post_detail_user_information.dart';
@@ -14,8 +13,7 @@ class PostDetailPage extends StatefulWidget {
 
   PostDetailPage.dummy({super.key})
     : detail = PostDetail(
-        id: '1',
-        postid: '',
+        postid: '1',
         hostId: 'testUser123',
         hostNickname: '테스트 유저',
         hostProfileImage: '',
@@ -63,6 +61,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
               hostId: detail.hostId,
               hostProfileImage: detail.hostProfileImage,
             ),
+
             // pubspec.yaml에 intl 패키지 추가 후 사용.
             // ImageSection(images: detail.images.first),
             // InfoSection(
@@ -71,7 +70,6 @@ class _PostDetailPageState extends State<PostDetailPage> {
             //   description: detail.description,
             //   restName: detail.restName,
             // ),
-
             MapSection(location: detail.location),
           ],
         ),

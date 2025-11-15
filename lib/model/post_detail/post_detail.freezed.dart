@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PostDetail {
 
- String get id; String get hostId; String get hostNickname; String get hostProfileImage; String get postTitle; String get description; String get restName; Location get location; List<String> get images; DateTime get reservedAt; String get chatroomId;
+ String get hostId; String get hostNickname; String get hostProfileImage; String get postTitle; String get description; String get restName; Location get location; List<String> get images; DateTime get reservedAt; String get chatroomId; String get postid;
 /// Create a copy of PostDetail
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $PostDetailCopyWith<PostDetail> get copyWith => _$PostDetailCopyWithImpl<PostDet
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PostDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.hostId, hostId) || other.hostId == hostId)&&(identical(other.hostNickname, hostNickname) || other.hostNickname == hostNickname)&&(identical(other.hostProfileImage, hostProfileImage) || other.hostProfileImage == hostProfileImage)&&(identical(other.postTitle, postTitle) || other.postTitle == postTitle)&&(identical(other.description, description) || other.description == description)&&(identical(other.restName, restName) || other.restName == restName)&&(identical(other.location, location) || other.location == location)&&const DeepCollectionEquality().equals(other.images, images)&&(identical(other.reservedAt, reservedAt) || other.reservedAt == reservedAt)&&(identical(other.chatroomId, chatroomId) || other.chatroomId == chatroomId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PostDetail&&(identical(other.hostId, hostId) || other.hostId == hostId)&&(identical(other.hostNickname, hostNickname) || other.hostNickname == hostNickname)&&(identical(other.hostProfileImage, hostProfileImage) || other.hostProfileImage == hostProfileImage)&&(identical(other.postTitle, postTitle) || other.postTitle == postTitle)&&(identical(other.description, description) || other.description == description)&&(identical(other.restName, restName) || other.restName == restName)&&(identical(other.location, location) || other.location == location)&&const DeepCollectionEquality().equals(other.images, images)&&(identical(other.reservedAt, reservedAt) || other.reservedAt == reservedAt)&&(identical(other.chatroomId, chatroomId) || other.chatroomId == chatroomId)&&(identical(other.postid, postid) || other.postid == postid));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,hostId,hostNickname,hostProfileImage,postTitle,description,restName,location,const DeepCollectionEquality().hash(images),reservedAt,chatroomId);
+int get hashCode => Object.hash(runtimeType,hostId,hostNickname,hostProfileImage,postTitle,description,restName,location,const DeepCollectionEquality().hash(images),reservedAt,chatroomId,postid);
 
 @override
 String toString() {
-  return 'PostDetail(id: $id, hostId: $hostId, hostNickname: $hostNickname, hostProfileImage: $hostProfileImage, postTitle: $postTitle, description: $description, restName: $restName, location: $location, images: $images, reservedAt: $reservedAt, chatroomId: $chatroomId)';
+  return 'PostDetail(hostId: $hostId, hostNickname: $hostNickname, hostProfileImage: $hostProfileImage, postTitle: $postTitle, description: $description, restName: $restName, location: $location, images: $images, reservedAt: $reservedAt, chatroomId: $chatroomId, postid: $postid)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $PostDetailCopyWith<$Res>  {
   factory $PostDetailCopyWith(PostDetail value, $Res Function(PostDetail) _then) = _$PostDetailCopyWithImpl;
 @useResult
 $Res call({
- String id, String hostId, String hostNickname, String hostProfileImage, String postTitle, String description, String restName, Location location, List<String> images, DateTime reservedAt, String chatroomId
+ String hostId, String hostNickname, String hostProfileImage, String postTitle, String description, String restName, Location location, List<String> images, DateTime reservedAt, String chatroomId, String postid
 });
 
 
@@ -65,10 +65,9 @@ class _$PostDetailCopyWithImpl<$Res>
 
 /// Create a copy of PostDetail
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? hostId = null,Object? hostNickname = null,Object? hostProfileImage = null,Object? postTitle = null,Object? description = null,Object? restName = null,Object? location = null,Object? images = null,Object? reservedAt = null,Object? chatroomId = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? hostId = null,Object? hostNickname = null,Object? hostProfileImage = null,Object? postTitle = null,Object? description = null,Object? restName = null,Object? location = null,Object? images = null,Object? reservedAt = null,Object? chatroomId = null,Object? postid = null,}) {
   return _then(_self.copyWith(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,hostId: null == hostId ? _self.hostId : hostId // ignore: cast_nullable_to_non_nullable
+hostId: null == hostId ? _self.hostId : hostId // ignore: cast_nullable_to_non_nullable
 as String,hostNickname: null == hostNickname ? _self.hostNickname : hostNickname // ignore: cast_nullable_to_non_nullable
 as String,hostProfileImage: null == hostProfileImage ? _self.hostProfileImage : hostProfileImage // ignore: cast_nullable_to_non_nullable
 as String,postTitle: null == postTitle ? _self.postTitle : postTitle // ignore: cast_nullable_to_non_nullable
@@ -78,6 +77,7 @@ as String,location: null == location ? _self.location : location // ignore: cast
 as Location,images: null == images ? _self.images : images // ignore: cast_nullable_to_non_nullable
 as List<String>,reservedAt: null == reservedAt ? _self.reservedAt : reservedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,chatroomId: null == chatroomId ? _self.chatroomId : chatroomId // ignore: cast_nullable_to_non_nullable
+as String,postid: null == postid ? _self.postid : postid // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -172,10 +172,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String hostId,  String hostNickname,  String hostProfileImage,  String postTitle,  String description,  String restName,  Location location,  List<String> images,  DateTime reservedAt,  String chatroomId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String hostId,  String hostNickname,  String hostProfileImage,  String postTitle,  String description,  String restName,  Location location,  List<String> images,  DateTime reservedAt,  String chatroomId,  String postid)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PostDetail() when $default != null:
-return $default(_that.id,_that.hostId,_that.hostNickname,_that.hostProfileImage,_that.postTitle,_that.description,_that.restName,_that.location,_that.images,_that.reservedAt,_that.chatroomId);case _:
+return $default(_that.hostId,_that.hostNickname,_that.hostProfileImage,_that.postTitle,_that.description,_that.restName,_that.location,_that.images,_that.reservedAt,_that.chatroomId,_that.postid);case _:
   return orElse();
 
 }
@@ -193,10 +193,10 @@ return $default(_that.id,_that.hostId,_that.hostNickname,_that.hostProfileImage,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String hostId,  String hostNickname,  String hostProfileImage,  String postTitle,  String description,  String restName,  Location location,  List<String> images,  DateTime reservedAt,  String chatroomId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String hostId,  String hostNickname,  String hostProfileImage,  String postTitle,  String description,  String restName,  Location location,  List<String> images,  DateTime reservedAt,  String chatroomId,  String postid)  $default,) {final _that = this;
 switch (_that) {
 case _PostDetail():
-return $default(_that.id,_that.hostId,_that.hostNickname,_that.hostProfileImage,_that.postTitle,_that.description,_that.restName,_that.location,_that.images,_that.reservedAt,_that.chatroomId);case _:
+return $default(_that.hostId,_that.hostNickname,_that.hostProfileImage,_that.postTitle,_that.description,_that.restName,_that.location,_that.images,_that.reservedAt,_that.chatroomId,_that.postid);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -213,10 +213,10 @@ return $default(_that.id,_that.hostId,_that.hostNickname,_that.hostProfileImage,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String hostId,  String hostNickname,  String hostProfileImage,  String postTitle,  String description,  String restName,  Location location,  List<String> images,  DateTime reservedAt,  String chatroomId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String hostId,  String hostNickname,  String hostProfileImage,  String postTitle,  String description,  String restName,  Location location,  List<String> images,  DateTime reservedAt,  String chatroomId,  String postid)?  $default,) {final _that = this;
 switch (_that) {
 case _PostDetail() when $default != null:
-return $default(_that.id,_that.hostId,_that.hostNickname,_that.hostProfileImage,_that.postTitle,_that.description,_that.restName,_that.location,_that.images,_that.reservedAt,_that.chatroomId);case _:
+return $default(_that.hostId,_that.hostNickname,_that.hostProfileImage,_that.postTitle,_that.description,_that.restName,_that.location,_that.images,_that.reservedAt,_that.chatroomId,_that.postid);case _:
   return null;
 
 }
@@ -228,10 +228,9 @@ return $default(_that.id,_that.hostId,_that.hostNickname,_that.hostProfileImage,
 @JsonSerializable()
 
 class _PostDetail implements PostDetail {
-   _PostDetail({required this.id, required this.hostId, required this.hostNickname, required this.hostProfileImage, required this.postTitle, required this.description, required this.restName, required this.location, required final  List<String> images, required this.reservedAt, required this.chatroomId}): _images = images;
+   _PostDetail({required this.hostId, required this.hostNickname, required this.hostProfileImage, required this.postTitle, required this.description, required this.restName, required this.location, required final  List<String> images, required this.reservedAt, required this.chatroomId, required this.postid}): _images = images;
   factory _PostDetail.fromJson(Map<String, dynamic> json) => _$PostDetailFromJson(json);
 
-@override final  String id;
 @override final  String hostId;
 @override final  String hostNickname;
 @override final  String hostProfileImage;
@@ -248,6 +247,7 @@ class _PostDetail implements PostDetail {
 
 @override final  DateTime reservedAt;
 @override final  String chatroomId;
+@override final  String postid;
 
 /// Create a copy of PostDetail
 /// with the given fields replaced by the non-null parameter values.
@@ -262,16 +262,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PostDetail&&(identical(other.id, id) || other.id == id)&&(identical(other.hostId, hostId) || other.hostId == hostId)&&(identical(other.hostNickname, hostNickname) || other.hostNickname == hostNickname)&&(identical(other.hostProfileImage, hostProfileImage) || other.hostProfileImage == hostProfileImage)&&(identical(other.postTitle, postTitle) || other.postTitle == postTitle)&&(identical(other.description, description) || other.description == description)&&(identical(other.restName, restName) || other.restName == restName)&&(identical(other.location, location) || other.location == location)&&const DeepCollectionEquality().equals(other._images, _images)&&(identical(other.reservedAt, reservedAt) || other.reservedAt == reservedAt)&&(identical(other.chatroomId, chatroomId) || other.chatroomId == chatroomId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PostDetail&&(identical(other.hostId, hostId) || other.hostId == hostId)&&(identical(other.hostNickname, hostNickname) || other.hostNickname == hostNickname)&&(identical(other.hostProfileImage, hostProfileImage) || other.hostProfileImage == hostProfileImage)&&(identical(other.postTitle, postTitle) || other.postTitle == postTitle)&&(identical(other.description, description) || other.description == description)&&(identical(other.restName, restName) || other.restName == restName)&&(identical(other.location, location) || other.location == location)&&const DeepCollectionEquality().equals(other._images, _images)&&(identical(other.reservedAt, reservedAt) || other.reservedAt == reservedAt)&&(identical(other.chatroomId, chatroomId) || other.chatroomId == chatroomId)&&(identical(other.postid, postid) || other.postid == postid));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,hostId,hostNickname,hostProfileImage,postTitle,description,restName,location,const DeepCollectionEquality().hash(_images),reservedAt,chatroomId);
+int get hashCode => Object.hash(runtimeType,hostId,hostNickname,hostProfileImage,postTitle,description,restName,location,const DeepCollectionEquality().hash(_images),reservedAt,chatroomId,postid);
 
 @override
 String toString() {
-  return 'PostDetail(id: $id, hostId: $hostId, hostNickname: $hostNickname, hostProfileImage: $hostProfileImage, postTitle: $postTitle, description: $description, restName: $restName, location: $location, images: $images, reservedAt: $reservedAt, chatroomId: $chatroomId)';
+  return 'PostDetail(hostId: $hostId, hostNickname: $hostNickname, hostProfileImage: $hostProfileImage, postTitle: $postTitle, description: $description, restName: $restName, location: $location, images: $images, reservedAt: $reservedAt, chatroomId: $chatroomId, postid: $postid)';
 }
 
 
@@ -282,7 +282,7 @@ abstract mixin class _$PostDetailCopyWith<$Res> implements $PostDetailCopyWith<$
   factory _$PostDetailCopyWith(_PostDetail value, $Res Function(_PostDetail) _then) = __$PostDetailCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String hostId, String hostNickname, String hostProfileImage, String postTitle, String description, String restName, Location location, List<String> images, DateTime reservedAt, String chatroomId
+ String hostId, String hostNickname, String hostProfileImage, String postTitle, String description, String restName, Location location, List<String> images, DateTime reservedAt, String chatroomId, String postid
 });
 
 
@@ -299,10 +299,9 @@ class __$PostDetailCopyWithImpl<$Res>
 
 /// Create a copy of PostDetail
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? hostId = null,Object? hostNickname = null,Object? hostProfileImage = null,Object? postTitle = null,Object? description = null,Object? restName = null,Object? location = null,Object? images = null,Object? reservedAt = null,Object? chatroomId = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? hostId = null,Object? hostNickname = null,Object? hostProfileImage = null,Object? postTitle = null,Object? description = null,Object? restName = null,Object? location = null,Object? images = null,Object? reservedAt = null,Object? chatroomId = null,Object? postid = null,}) {
   return _then(_PostDetail(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,hostId: null == hostId ? _self.hostId : hostId // ignore: cast_nullable_to_non_nullable
+hostId: null == hostId ? _self.hostId : hostId // ignore: cast_nullable_to_non_nullable
 as String,hostNickname: null == hostNickname ? _self.hostNickname : hostNickname // ignore: cast_nullable_to_non_nullable
 as String,hostProfileImage: null == hostProfileImage ? _self.hostProfileImage : hostProfileImage // ignore: cast_nullable_to_non_nullable
 as String,postTitle: null == postTitle ? _self.postTitle : postTitle // ignore: cast_nullable_to_non_nullable
@@ -312,6 +311,7 @@ as String,location: null == location ? _self.location : location // ignore: cast
 as Location,images: null == images ? _self._images : images // ignore: cast_nullable_to_non_nullable
 as List<String>,reservedAt: null == reservedAt ? _self.reservedAt : reservedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,chatroomId: null == chatroomId ? _self.chatroomId : chatroomId // ignore: cast_nullable_to_non_nullable
+as String,postid: null == postid ? _self.postid : postid // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

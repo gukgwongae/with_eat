@@ -7,7 +7,6 @@ part of 'post_detail.dart';
 // **************************************************************************
 
 _PostDetail _$PostDetailFromJson(Map<String, dynamic> json) => _PostDetail(
-  id: json['id'] as String,
   hostId: json['hostId'] as String,
   hostNickname: json['hostNickname'] as String,
   hostProfileImage: json['hostProfileImage'] as String,
@@ -18,11 +17,11 @@ _PostDetail _$PostDetailFromJson(Map<String, dynamic> json) => _PostDetail(
   images: (json['images'] as List<dynamic>).map((e) => e as String).toList(),
   reservedAt: DateTime.parse(json['reservedAt'] as String),
   chatroomId: json['chatroomId'] as String,
+  postid: json['postid'] as String,
 );
 
 Map<String, dynamic> _$PostDetailToJson(_PostDetail instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'hostId': instance.hostId,
       'hostNickname': instance.hostNickname,
       'hostProfileImage': instance.hostProfileImage,
@@ -33,6 +32,7 @@ Map<String, dynamic> _$PostDetailToJson(_PostDetail instance) =>
       'images': instance.images,
       'reservedAt': instance.reservedAt.toIso8601String(),
       'chatroomId': instance.chatroomId,
+      'postid': instance.postid,
     };
 
 _Location _$LocationFromJson(Map<String, dynamic> json) => _Location(
