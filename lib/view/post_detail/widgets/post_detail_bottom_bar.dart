@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class BottomBarSection extends StatelessWidget {
+  final bool isFavorite;
   final VoidCallback onChat;
   final VoidCallback onFavorite;
-
   const BottomBarSection({
     super.key,
+    required this.isFavorite,
     required this.onChat,
     required this.onFavorite,
   });
@@ -19,7 +20,10 @@ class BottomBarSection extends StatelessWidget {
           children: [
             IconButton(
               onPressed: onFavorite,
-              icon: const Icon(Icons.star_border),
+              icon: Icon(
+                isFavorite ? Icons.star : Icons.star_border,
+                color: isFavorite ? Colors.amber : Colors.grey,
+              ),
             ),
 
             const SizedBox(width: 8),

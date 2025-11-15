@@ -16,13 +16,12 @@ abstract class PostDetail with _$PostDetail {
     required Location location,
     required List<String> images,
     required DateTime reservedAt,
-    required String chatroomId,
+    required String chatroomId, required String postid,
   }) = _PostDetail;
 
   factory PostDetail.fromJson(Map<String, dynamic> json) =>
       _$PostDetailFromJson(json);
 }
-
 
 @freezed
 abstract class Location with _$Location {
@@ -32,5 +31,6 @@ abstract class Location with _$Location {
     required String address,
   }) = _Location;
 
-  factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json); 
+  factory Location.fromJson(Map<String, dynamic> json) =>
+      _$LocationFromJson(json);
 }
