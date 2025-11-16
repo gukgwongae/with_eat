@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'main_navigation_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false),
-      body: Column(),
-    );
+    return const MainNavigationPage();
   }
 }
