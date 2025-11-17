@@ -34,7 +34,15 @@ class _HomeTabState extends State<HomeTab> {
       body: ListView.builder(
         itemCount: posts.length,
         itemBuilder: (context, index) {
-          return HomeListItem(post: posts[index]);
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PostDetail()),
+              );
+            },
+            child: HomeListItem(post: posts[index]),
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(
