@@ -23,7 +23,7 @@ class ValidatorUtil {
     if (value?.trim().isEmpty ?? true) {
       return "닉네임을 입력해주세요";
     }
-    if (value!.length < 2) {
+    if (value!.length < 1) {
       return '닉네임은 2글자 이상이여야합니다';
     }
     return null;
