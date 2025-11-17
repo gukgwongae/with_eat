@@ -15,7 +15,8 @@ abstract class PostDetail with _$PostDetail {
     required Location location,
     required List<String> images,
     required DateTime reservedAt,
-    required String chatroomId, required String postid,
+    required String chatroomId,
+    required String postid,
   }) = _PostDetail;
 
   factory PostDetail.fromJson(Map<String, dynamic> json) =>
