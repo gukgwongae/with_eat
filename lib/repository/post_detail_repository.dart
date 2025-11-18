@@ -40,6 +40,17 @@ class PostDetailRepository {
 
   Future<void> create(PostDetail post) async {
     await _collection.doc(post.postid).set(_toFirestore(post));
+    await _firestore.collection('chatRooms').doc(post.chatroomId).set({
+      'postId': post.postid,
+      'postTitle': post.postTitle,
+      'images': post.images,
+      'location': {
+        'lat': post.location.lat,
+        'lng': post.location.lng,
+        'address': post.location.address,
+      },
+      'createdAt': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
   }
 
   PostDetail _fromFirestore(String documentId, Map<String, dynamic> data) {

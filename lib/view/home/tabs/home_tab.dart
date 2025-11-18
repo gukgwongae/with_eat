@@ -52,8 +52,7 @@ class _HomeTabState extends State<HomeTab> {
       postid: DateTime.now().millisecondsSinceEpoch.toString(),
       hostId: nickname,
       hostNickname: nickname,
-      hostProfileImage:
-          'https://cdn.pixabay.com/photo/2020/11/11/03/26/pork-belly-5731404_1280.jpg',
+      hostProfileImage: 'assets/person.png',
       postTitle: post.title,
       description: post.description,
       restName: post.restName,

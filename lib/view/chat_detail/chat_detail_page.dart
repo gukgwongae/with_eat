@@ -65,6 +65,9 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 ChatDetailProductArea(
                   title: widget.post.postTitle,
                   subtitle: widget.post.restName,
+                  imageUrl: widget.post.images.isNotEmpty
+                      ? widget.post.images.first
+                      : null,
                 ),
                 ChatDetailListView(
                   messages: messages,

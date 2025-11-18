@@ -23,9 +23,7 @@ class PostDetailPage extends StatefulWidget {
         postTitle: '삼겹살 먹으러 갈 사람~',
         description: '제가 쏘겠습니다.\n선착순~~~',
         restName: '하남돼지 사당점',
-        images: [
-          'https://cdn.pixabay.com/photo/2020/11/11/03/26/pork-belly-5731404_1280.jpg',
-        ],
+        images: ['assets/person.png'],
         // 여기 전달 받은 날짜 값으로 입력되도록 수정 필요.
         reservedAt: DateTime.now(),
         chatroomId: 'chat123',

@@ -1,122 +1,140 @@
 import 'package:flutter/material.dart';
-import 'package:with_eat/model/post_detail/post_detail.dart';
+import 'package:with_eat/model/chat/chat_room.dart';
+import 'package:with_eat/repository/chat_repository.dart';
+import 'package:with_eat/repository/post_detail_repository.dart';
 import 'package:with_eat/view/chat_detail/chat_detail_page.dart';
 import 'package:with_eat/view/chat_detail/widgets/chat_detail_timeFormat.dart';
 
 class ChatTabListView extends StatelessWidget {
+  ChatTabListView({super.key});
+
+  final ChatRepository _chatRepository = ChatRepository();
+  final PostDetailRepository _postRepository = PostDetailRepository();
+
+  Future<void> _openChat(BuildContext context, ChatRoom room) async {
+    try {
+      final post = await _postRepository.fetchById(room.postId);
+      if (!context.mounted) return;
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => ChatDetailPage(post: post, chatRoomId: room.id),
+        ),
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('채팅방을 여는 데 실패했습니다.\n$e')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.separated(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        itemCount: 1,
-        itemBuilder: (context, index) {
-          return item();
-        },
-        separatorBuilder: (context, index) {
-          return Divider(height: 1);
+      child: StreamBuilder<List<ChatRoom>>(
+        stream: _chatRepository.watchAllRooms(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final rooms = snapshot.data ?? [];
+          if (rooms.isEmpty) {
+            return const Center(child: Text('채팅방이 없습니다.'));
+          }
+          return ListView.separated(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            itemCount: rooms.length,
+            separatorBuilder: (_, __) => const Divider(height: 1),
+            itemBuilder: (context, index) {
+              final room = rooms[index];
+              return GestureDetector(
+                onTap: () => _openChat(context, room),
+                child: _ChatRoomTile(room: room),
+              );
+            },
+          );
         },
       ),
     );
   }
+}
 
-  Widget item() {
-    return Builder(
-      builder: (context) {
-        return GestureDetector(
-          onTap: () {
-            final detail = _dummyPostDetail();
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    ChatDetailPage(post: detail, chatRoomId: detail.chatroomId),
+class _ChatRoomTile extends StatelessWidget {
+  const _ChatRoomTile({required this.room});
+
+  final ChatRoom room;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 90,
+      color: Colors.transparent,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 10),
+              SizedBox.square(
+                dimension: 50,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.asset('assets/p1.jpg'),
+                ),
               ),
-            );
-          },
-          child: Container(
-            height: 80,
-            color: Colors.transparent,
-            child: Row(
+              const SizedBox(height: 4),
+              Text(
+                room.hostNickname.isEmpty ? '작성자' : room.hostNickname,
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(width: 20),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 프로필 + 이름
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 10),
-                    SizedBox.square(
-                      dimension: 50,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: Image.asset('assets/p1.jpg'),
-                      ),
-                    ),
-                    Text(
-                      '강준석',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-
-                SizedBox(width: 20),
-
-                // 내용
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '삼겹살 먹으러 갈 사람 구함',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 15),
-                      Text(
-                        ChatDetailTimeFormat(DateTime.now()),
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                    ],
+                Text(
+                  room.postTitle,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-
-                // fork 이미지 - 프로필 사진과 같은 크기
-                Container(
-                  width: 70,
-                  alignment: Alignment.center,
-                  child: SizedBox(
-                    width: 70,
-                    height: 70,
-                    child: Image.asset('assets/fork.png', fit: BoxFit.cover),
-                  ),
+                const SizedBox(height: 6),
+                Text(
+                  room.lastMessage.isEmpty ? '아직 메시지가 없습니다.' : room.lastMessage,
+                  style: const TextStyle(fontSize: 14, color: Colors.black54),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  ChatDetailTimeFormat(room.updatedAt),
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
                 ),
               ],
             ),
           ),
-        );
-      },
+          Container(
+            width: 70,
+            alignment: Alignment.center,
+            child: SizedBox(
+              width: 70,
+              height: 70,
+              child: Image.asset('assets/person.png', fit: BoxFit.cover),
+            ),
+          ),
+        ],
+      ),
     );
   }
-}
-
-PostDetail _dummyPostDetail() {
-  return PostDetail(
-    postid: 'dummy',
-    hostId: 'host',
-    hostNickname: '호스트',
-    hostProfileImage: '',
-    postTitle: '삼겹살 먹으러 갈 사람 구함',
-    description: '채팅 탭 더미 데이터',
-    restName: '하남돼지 사당점',
-    location: Location(lat: 37.5665, lng: 126.9780, address: '서울시'),
-    images: const [],
-    reservedAt: DateTime.now(),
-    chatroomId: 'chat_dummy',
-  );
 }
