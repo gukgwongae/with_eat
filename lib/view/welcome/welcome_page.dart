@@ -58,7 +58,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   ),
                   SizedBox(height: 10),
                   Align(alignment: Alignment.centerRight, child: Text("회원가입")),
-                  SizedBox(height: 80),
+                  SizedBox(height: 30),
                   Text("SNS 계정으로 시작하기"),
                   SizedBox(height: 20),
                   Row(
