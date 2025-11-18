@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "192319133530",
+    "project_id": "with-eat",
+    "storage_bucket": "with-eat.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192319133530:android:f413bc66e3363484488563",
+        "android_client_info": {
+          "package_name": "com.example.with_eat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaUIANkn-AFhR3j1UT-BX74lBf1GAtEGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

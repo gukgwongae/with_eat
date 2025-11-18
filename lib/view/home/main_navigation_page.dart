@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:with_eat/view/my/my_page.dart';
 import 'tabs/home_tab.dart';
-import 'tabs/chat_tab.dart';
+import 'tabs/chat_tab/chat_tab.dart';
 import 'tabs/my_tab.dart';
 
 class MainNavigationPage extends StatefulWidget {
@@ -13,7 +14,7 @@ class MainNavigationPage extends StatefulWidget {
 class _MainNavigationPageState extends State<MainNavigationPage> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [HomeTab(), ChatTab(), MyTab()];
+  final List<Widget> _pages = [HomeTab(), ChatTab(), MyPage()];
 
   void _onItemTapped(int index) {
     setState(() {
