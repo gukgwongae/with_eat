@@ -5,14 +5,12 @@ import 'home_list_item.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
-
   @override
   State<HomeTab> createState() => _HomeTabState();
 }
 
 class _HomeTabState extends State<HomeTab> {
   List<AddDetail> posts = [];
-
   void _addPost() async {
     final result = await Navigator.push(
       context,
@@ -36,7 +34,6 @@ class _HomeTabState extends State<HomeTab> {
         itemCount: posts.length,
         itemBuilder: (context, index) {
           final post = posts[index];
-
           return GestureDetector(
             onTap: () {
               Navigator.push(
