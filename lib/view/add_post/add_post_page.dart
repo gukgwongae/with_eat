@@ -1,5 +1,6 @@
 //## 매칭 글 등록 화면입니다.
 import 'package:flutter/material.dart';
+import 'package:with_eat/view/add_post/widgets/add_post_display_view.dart';
 
 class AddDetail {
   String title = "";
@@ -71,10 +72,10 @@ class _AddPostState extends State<AddPost> {
                   horizontal: 16,
                   vertical: 20,
                 ),
-                child: displayView(
-                  widget.titleController,
-                  widget.restNameController,
-                  widget.desController,
+                child: AddPostDisplayView(
+                  titleController: widget.titleController,
+                  restNameController: widget.restNameController,
+                  desController: widget.desController,
                 ),
               ),
             ),
@@ -124,118 +125,6 @@ class _AddPostState extends State<AddPost> {
       ),
     );
   }
-}
-
-Widget displayView(
-  TextEditingController titleController,
-  TextEditingController restNameController,
-  TextEditingController desController,
-) {
-  return Column(
-    children: [
-      titleLabel("사진 등록(*/10)"),
-      SizedBox(height: 5),
-      GestureDetector(
-        onTap: () {
-          // 갤러리 열기
-        },
-        child: Align(
-          alignment: AlignmentGeometry.centerLeft,
-          child: Container(
-            width: 60,
-            height: 60,
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black12),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Align(
-              alignment: Alignment.center,
-              child: Icon(
-                Icons.camera_alt_rounded,
-                color: Colors.black45,
-                size: 24,
-              ),
-            ),
-          ),
-        ),
-      ),
-      SizedBox(height: 30),
-      titleLabel("제목"),
-      SizedBox(height: 5),
-      TextField(
-        controller: titleController,
-        maxLength: 30,
-        maxLines: 1,
-        decoration: styleInputDecoration().copyWith(hintText: '삼겹살 같이 먹어요~'),
-      ),
-      SizedBox(height: 30),
-      titleLabel("가게 이름"),
-      SizedBox(height: 5),
-      TextField(
-        controller: restNameController,
-        maxLength: 30,
-        maxLines: 1,
-        decoration: styleInputDecoration().copyWith(hintText: '하남돼지 방배역점'),
-      ),
-      SizedBox(height: 30),
-      Container(
-        height: 200,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.black12, width: 2),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Center(child: Text('지도 영역')),
-      ),
-      SizedBox(height: 30),
-      Container(
-        height: 50,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.black12, width: 2),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Center(child: Text('일정 선택 영역')),
-      ),
-      SizedBox(height: 30),
-      titleLabel("설명"),
-      SizedBox(height: 5),
-      TextField(
-        controller: desController,
-        maxLength: 1000,
-        maxLines: 8,
-        decoration: styleInputDecoration().copyWith(
-          hintText: '결제 방법이나 기타 사항들을 적어주세요.\n예: 제가 쏘겠습니다. 선착순~~~',
-        ),
-      ),
-      SizedBox(height: 30),
-    ],
-  );
-}
-
-// ## TextField 스타일 정의
-InputDecoration styleInputDecoration() {
-  return InputDecoration(
-    counterText: '',
-    // contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-    // ## 포커스가 없을 때 (기본) 테두리 색상
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.black12, width: 2),
-      borderRadius: BorderRadius.circular(10.0),
-    ),
-    // ## 포커스가 있을 때 (선택되었을 때) 테두리 색상
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(
-        color: Colors.black, // 포커스 색상
-        width: 2,
-      ),
-      borderRadius: BorderRadius.circular(10),
-    ),
-  );
-}
-
-// ## 인풋창 라벨 스타일 정의
-Widget titleLabel(String title) {
-  return Align(alignment: Alignment.centerLeft, child: Text(title));
 }
 
 // ## 유효성 체크 토스트 팝업
