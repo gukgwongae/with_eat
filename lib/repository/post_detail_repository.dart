@@ -43,13 +43,17 @@ class PostDetailRepository {
     await _firestore.collection('chatRooms').doc(post.chatroomId).set({
       'postId': post.postid,
       'postTitle': post.postTitle,
+      'restName': post.restName,
+      'hostNickname': post.hostNickname,
+      'members': [post.hostId],
       'images': post.images,
       'location': {
         'lat': post.location.lat,
         'lng': post.location.lng,
         'address': post.location.address,
       },
-      'createdAt': FieldValue.serverTimestamp(),
+      'lastMessage': '',
+      'updatedAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
   }
 

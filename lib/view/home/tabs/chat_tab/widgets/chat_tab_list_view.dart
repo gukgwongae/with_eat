@@ -81,7 +81,7 @@ class _ChatRoomTile extends StatelessWidget {
                 dimension: 50,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
-                  child: Image.asset('assets/p1.jpg'),
+                  child: Image.asset('assets/person.png'),
                 ),
               ),
               const SizedBox(height: 4),
@@ -122,15 +122,6 @@ class _ChatRoomTile extends StatelessWidget {
                   style: const TextStyle(fontSize: 12, color: Colors.grey),
                 ),
               ],
-            ),
-          ),
-          Container(
-            width: 70,
-            alignment: Alignment.center,
-            child: SizedBox(
-              width: 70,
-              height: 70,
-              child: Image.asset('assets/person.png', fit: BoxFit.cover),
             ),
           ),
         ],

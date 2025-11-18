@@ -135,7 +135,7 @@ class _HomeTabState extends State<HomeTab> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("가치먹자"),
+        title: const Text("가치먹쟈"),
         automaticallyImplyLeading: false,
       ),
       body: body,

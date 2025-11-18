@@ -41,5 +41,15 @@ class ChatRepository {
       'content': content,
       'createdAt': FieldValue.serverTimestamp(),
     });
+    await _rooms.doc(chatRoomId).set({
+      'lastMessage': content,
+      'updatedAt': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+  }
+
+  Future<void> addMember(String chatRoomId, String userId) async {
+    await _rooms.doc(chatRoomId).set({
+      'members': FieldValue.arrayUnion([userId]),
+    }, SetOptions(merge: true));
   }
 }

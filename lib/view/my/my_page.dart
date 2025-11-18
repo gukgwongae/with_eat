@@ -1,6 +1,7 @@
 //## my page 화면입니다.
 
 import 'package:flutter/material.dart';
+import 'package:with_eat/core/user_session.dart';
 
 class User {
   String id = "";
@@ -21,7 +22,20 @@ class MyPage extends StatefulWidget {
 
 //## 유효성 체크 문구
 class _MyPageState extends State<MyPage> {
-  bool _isEditMode = false; //## 수정 모드 상태 추가
+  bool _isEditMode = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadNickname();
+  }
+
+  Future<void> _loadNickname() async {
+    final nickname = await UserSession.getNickname();
+    if (!mounted) return;
+    widget.nicknameController.text = nickname ?? '';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,12 +43,13 @@ class _MyPageState extends State<MyPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false, // 뒤로가기 자동 생성 비활성화
         backgroundColor: Colors.white,
-        title: Text("MY"),
+        title: Text("마이 페이지"),
         actions: [
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               if (_isEditMode) {
-                print("저장 실행");
+                final nickname = widget.nicknameController.text.trim();
+                await UserSession.setNickname(nickname);
               }
               setState(() {
                 _isEditMode = !_isEditMode;
