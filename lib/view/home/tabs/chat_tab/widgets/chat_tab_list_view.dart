@@ -45,10 +45,7 @@ class ChatTabListView extends StatelessWidget {
                       dimension: 50,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
-                        child: Image.network(
-                          'https://picsum.photos/200/300',
-                          fit: BoxFit.cover,
-                        ),
+                        child: Image.asset('assets/profile.jpg'),
                       ),
                     ),
                     Text(
