@@ -27,20 +27,14 @@ class _MyPageState extends State<MyPage> {
     return Scaffold(
       //## 앱바
       appBar: AppBar(
+        automaticallyImplyLeading: false, // 뒤로가기 자동 생성 비활성화
         backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_rounded),
-          onPressed: () {
-            Navigator.pop(context); //## 이전 페이지로 이동
-          },
-        ),
         title: Text("MY"),
-        //## 수정 or 저장 버튼
         actions: [
           TextButton(
             onPressed: () {
               if (_isEditMode) {
-                print("저장 실행"); //##: isEditMode가 true일 때 저장 로직
+                print("저장 실행");
               }
               setState(() {
                 _isEditMode = !_isEditMode;
@@ -53,6 +47,7 @@ class _MyPageState extends State<MyPage> {
           ),
         ],
       ),
+
       //## 바디
       body: Container(
         color: Colors.white,

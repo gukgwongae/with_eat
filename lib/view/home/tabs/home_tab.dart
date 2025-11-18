@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:with_eat/view/post_detail/post_detail_page.dart';
 import '../../../add_post_page.dart';
 import 'home_list_item.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
-
   @override
   State<HomeTab> createState() => _HomeTabState();
 }
 
 class _HomeTabState extends State<HomeTab> {
   List<AddDetail> posts = [];
-
   void _addPost() async {
     final result = await Navigator.push(
       context,
@@ -34,14 +33,15 @@ class _HomeTabState extends State<HomeTab> {
       body: ListView.builder(
         itemCount: posts.length,
         itemBuilder: (context, index) {
+          final post = posts[index];
           return GestureDetector(
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => PostDetail()),
+                MaterialPageRoute(builder: (_) => PostDetailPage.dummy()),
               );
             },
-            child: HomeListItem(post: posts[index]),
+            child: HomeListItem(post: post),
           );
         },
       ),
