@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:with_eat/core/user_session.dart';
 import 'package:with_eat/view/home/home_page.dart';
 import 'package:with_eat/view/profile_setting/nickname_text_field.dart';
 
@@ -58,10 +59,10 @@ class _ProfileSettingState extends State<ProfileSetting> {
                       width: double.infinity,
                       height: 50,
                       child: TextButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState?.validate() ?? false) {
-                            String nickname = _nicknameController.text;
-
+                            final nickname = _nicknameController.text.trim();
+                            await UserSession.setNickname(nickname);
                             Navigator.push(
                               context,
                               MaterialPageRoute(

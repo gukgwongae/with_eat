@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:with_eat/core/user_session.dart';
 import 'package:with_eat/model/post_detail/post_detail.dart';
 import 'package:with_eat/repository/post_detail_repository.dart';
 import 'package:with_eat/view/post_detail/post_detail_page.dart';
@@ -46,11 +47,11 @@ class _HomeTabState extends State<HomeTab> {
     }
   }
 
-  PostDetail _fromAddDetail(AddDetail post) {
+  PostDetail _fromAddDetail(AddDetail post, String nickname) {
     return PostDetail(
       postid: DateTime.now().millisecondsSinceEpoch.toString(),
-      hostId: 'hostId',
-      hostNickname: 'hostNickname',
+      hostId: nickname,
+      hostNickname: nickname,
       hostProfileImage:
           'https://cdn.pixabay.com/photo/2020/11/11/03/26/pork-belly-5731404_1280.jpg',
       postTitle: post.title,
@@ -73,7 +74,8 @@ class _HomeTabState extends State<HomeTab> {
       MaterialPageRoute(builder: (context) => AddPost()),
     );
     if (result != null && result is AddDetail) {
-      final newPost = _fromAddDetail(result);
+      final nickname = await UserSession.getNickname() ?? '익명';
+      final newPost = _fromAddDetail(result, nickname);
       setState(() {
         posts.insert(0, newPost);
       });
