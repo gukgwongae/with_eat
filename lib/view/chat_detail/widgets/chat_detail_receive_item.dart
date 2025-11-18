@@ -23,7 +23,7 @@ class ChatDetailReceiveItem extends StatelessWidget {
           dimension: 50,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
-            child: Image.asset('assets/profile.jpg'),
+            child: Image.asset('assets/p1.jpg'),
           ),
         ),
 

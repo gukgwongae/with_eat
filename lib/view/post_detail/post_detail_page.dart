@@ -56,7 +56,13 @@ class _PostDetailPageState extends State<PostDetailPage> {
               hostId: detail.hostId,
               hostProfileImage: detail.hostProfileImage,
             ),
-            ImageSection(images: detail.images.first),
+            if (detail.images.isNotEmpty)
+              ImageSection(images: detail.images.first)
+            else
+              const SizedBox(
+                height: 200,
+                child: Center(child: Icon(Icons.image_not_supported)),
+              ),
             InfoSection(
               reservedAt: detail.reservedAt,
               postTitle: detail.postTitle,
