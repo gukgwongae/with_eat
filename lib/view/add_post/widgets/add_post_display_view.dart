@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:with_eat/view/add_post/widgets/add_post_input_decoration.dart';
+import 'package:with_eat/view/add_post/widgets/add_post_title_label.dart';
 
 class AddPostDisplayView extends StatelessWidget {
   final TextEditingController titleController;
@@ -16,7 +18,7 @@ class AddPostDisplayView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        titleLabel("사진 등록(*/10)"),
+        AddPostTitleLabel(title: "사진 등록(*/10)"),
         const SizedBox(height: 5),
         GestureDetector(
           onTap: () {
@@ -41,22 +43,22 @@ class AddPostDisplayView extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 30),
-        titleLabel("제목"),
+        AddPostTitleLabel(title: "제목"),
         const SizedBox(height: 5),
         TextField(
           controller: titleController,
           maxLength: 30,
           maxLines: 1,
-          decoration: styleInputDecoration().copyWith(hintText: '삼겹살 같이 먹어요~'),
+          decoration: styleInputDecoration(hintText: '삼겹살 같이 먹어요~'),
         ),
         const SizedBox(height: 30),
-        titleLabel("가게 이름"),
+        AddPostTitleLabel(title: "가게 이름"),
         const SizedBox(height: 5),
         TextField(
           controller: restNameController,
           maxLength: 30,
           maxLines: 1,
-          decoration: styleInputDecoration().copyWith(hintText: '하남돼지 방배역점'),
+          decoration: styleInputDecoration(hintText: '하남돼지 방배역점'),
         ),
         const SizedBox(height: 30),
         Container(
@@ -77,39 +79,17 @@ class AddPostDisplayView extends StatelessWidget {
           child: const Center(child: Text('일정 선택 영역')),
         ),
         const SizedBox(height: 30),
-        titleLabel("설명"),
+        AddPostTitleLabel(title: "설명"),
         const SizedBox(height: 5),
         TextField(
           controller: desController,
           maxLength: 1000,
           maxLines: 8,
-          decoration: styleInputDecoration().copyWith(
+          decoration: styleInputDecoration(
             hintText: '결제 방법이나 기타 사항들을 적어주세요.\n예: 제가 쏘겠습니다. 선착순~~~',
           ),
         ),
       ],
     );
   }
-}
-
-// ## TextField 스타일 정의
-InputDecoration styleInputDecoration() {
-  return InputDecoration(
-    counterText: '',
-    // ## 포커스가 없을 때 (기본) 테두리 색상
-    enabledBorder: OutlineInputBorder(
-      borderSide: const BorderSide(color: Colors.black12, width: 2),
-      borderRadius: BorderRadius.circular(10.0),
-    ),
-    // ## 포커스가 있을 때 (선택되었을 때) 테두리 색상
-    focusedBorder: OutlineInputBorder(
-      borderSide: const BorderSide(color: Colors.black, width: 2),
-      borderRadius: BorderRadius.circular(10),
-    ),
-  );
-}
-
-// ## 인풋창 라벨 스타일 정의
-Widget titleLabel(String title) {
-  return Align(alignment: Alignment.centerLeft, child: Text(title));
 }
