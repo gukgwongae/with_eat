@@ -38,6 +38,10 @@ class PostDetailRepository {
     throw Exception('게시글($postId)을 찾을 수 없습니다.');
   }
 
+  Future<void> create(PostDetail post) async {
+    await _collection.doc(post.postid).set(_toFirestore(post));
+  }
+
   PostDetail _fromFirestore(String documentId, Map<String, dynamic> data) {
     final imagesRaw = data['images'];
     final images = imagesRaw is Iterable
@@ -67,6 +71,28 @@ class PostDetailRepository {
           (data['postid'] ?? data['postsid'] ?? data['postId'] ?? documentId)
               .toString(),
     );
+  }
+
+  Map<String, dynamic> _toFirestore(PostDetail post) {
+    return {
+      'hostId': post.hostId,
+      'hostNickname': post.hostNickname,
+      'hostProfileImage': post.hostProfileImage,
+      'postTitle': post.postTitle,
+      'description': post.description,
+      'restName': post.restName,
+      'location': {
+        'lat': post.location.lat,
+        'lng': post.location.lng,
+        'address': post.location.address,
+      },
+      'images': post.images,
+      'reservedAt': Timestamp.fromDate(post.reservedAt),
+      'chatroomId': post.chatroomId,
+      'postid': post.postid,
+      'postsid': post.postid,
+      'postId': post.postid,
+    };
   }
 
   double _toDouble(dynamic value) {

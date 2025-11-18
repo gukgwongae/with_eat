@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:with_eat/view/chat_detail/widgets/chat_detail_timeFormat.dart';
 
 class ChatDetailReceiveItem extends StatelessWidget {
-  ChatDetailReceiveItem({
+  const ChatDetailReceiveItem({
+    super.key,
     required this.imgUrl,
     required this.showProfile,
     required this.content,
@@ -17,17 +18,24 @@ class ChatDetailReceiveItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Image.network('https://picsum.photos/200/300'),
-        SizedBox.square(
-          dimension: 50,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(100),
-            child: Image.asset('assets/p1.jpg'),
-          ),
-        ),
-
-        SizedBox(width: 8),
+        if (showProfile)
+          SizedBox.square(
+            dimension: 40,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: imgUrl.isNotEmpty
+                  ? Image.network(imgUrl, fit: BoxFit.cover)
+                  : Container(
+                      color: Colors.grey[300],
+                      child: const Icon(Icons.person),
+                    ),
+            ),
+          )
+        else
+          const SizedBox(width: 40),
+        const SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,13 +45,15 @@ class ChatDetailReceiveItem extends StatelessWidget {
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(16),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(content, style: TextStyle(fontSize: 13)),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                child: Text(content, style: const TextStyle(fontSize: 13)),
               ),
-
               Text(
-                ChatDetailTimeFormat(DateTime.now()),
-                style: TextStyle(fontSize: 11, color: Colors.black45),
+                ChatDetailTimeFormat(dateTime),
+                style: const TextStyle(fontSize: 11, color: Colors.black45),
               ),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:with_eat/view/chat_detail/chat_detail_page.dart';
 import 'package:with_eat/view/post_detail/widgets/post_detail_app_bar.dart';
 import 'package:with_eat/view/post_detail/widgets/post_detail_bottom_bar.dart';
 import 'package:with_eat/view/post_detail/widgets/post_detail_image.dart';
@@ -76,7 +77,13 @@ class _PostDetailPageState extends State<PostDetailPage> {
       bottomNavigationBar: BottomBarSection(
         isFavorite: isFavorite,
         onChat: () {
-          // 채팅방으로 이동하는 기능 추가할 것.
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) =>
+                  ChatDetailPage(post: detail, chatRoomId: detail.chatroomId),
+            ),
+          );
         },
         onFavorite: () {
           setState(() {

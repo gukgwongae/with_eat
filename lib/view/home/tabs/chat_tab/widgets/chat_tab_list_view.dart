@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:with_eat/model/post_detail/post_detail.dart';
 import 'package:with_eat/view/chat_detail/chat_detail_page.dart';
 import 'package:with_eat/view/chat_detail/widgets/chat_detail_timeFormat.dart';
 
@@ -25,9 +25,13 @@ class ChatTabListView extends StatelessWidget {
       builder: (context) {
         return GestureDetector(
           onTap: () {
+            final detail = _dummyPostDetail();
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ChatDetailPage()),
+              MaterialPageRoute(
+                builder: (context) =>
+                    ChatDetailPage(post: detail, chatRoomId: detail.chatroomId),
+              ),
             );
           },
           child: Container(
@@ -99,4 +103,20 @@ class ChatTabListView extends StatelessWidget {
       },
     );
   }
+}
+
+PostDetail _dummyPostDetail() {
+  return PostDetail(
+    postid: 'dummy',
+    hostId: 'host',
+    hostNickname: '호스트',
+    hostProfileImage: '',
+    postTitle: '삼겹살 먹으러 갈 사람 구함',
+    description: '채팅 탭 더미 데이터',
+    restName: '하남돼지 사당점',
+    location: Location(lat: 37.5665, lng: 126.9780, address: '서울시'),
+    images: const [],
+    reservedAt: DateTime.now(),
+    chatroomId: 'chat_dummy',
+  );
 }

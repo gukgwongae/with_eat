@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:with_eat/model/post_detail/post_detail.dart';
@@ -34,12 +36,7 @@ class HomeListItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: post.images.isNotEmpty
-                    ? Image.network(
-                        post.images.first,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) =>
-                            Icon(Icons.broken_image, color: Colors.grey[300]),
-                      )
+                    ? _buildImage(post.images.first)
                     : Icon(Icons.image, color: Colors.grey[300]),
               ),
               SizedBox(width: 16),
@@ -87,5 +84,27 @@ class HomeListItem extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+Widget _buildImage(String source) {
+  if (source.startsWith('http')) {
+    return Image.network(
+      source,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) =>
+          const Icon(Icons.broken_image),
+    );
+  }
+  try {
+    final bytes = base64Decode(source);
+    return Image.memory(
+      bytes,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) =>
+          const Icon(Icons.broken_image),
+    );
+  } catch (_) {
+    return const Icon(Icons.broken_image);
   }
 }

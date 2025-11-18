@@ -67,7 +67,7 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
-  void _addPost() async {
+  Future<void> _addPost() async {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => AddPost()),
@@ -77,6 +77,16 @@ class _HomeTabState extends State<HomeTab> {
       setState(() {
         posts.insert(0, newPost);
       });
+      try {
+        await _repository.create(newPost);
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text('등록 실패: $e')));
+        }
+      }
+      await _loadPosts();
     }
   }
 

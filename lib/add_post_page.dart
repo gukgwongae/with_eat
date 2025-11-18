@@ -1,4 +1,5 @@
 //## 매칭 글 등록 화면입니다.
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -70,6 +71,11 @@ class _AddPostState extends State<AddPost> {
     });
   }
 
+  Future<String> _encodeFile(XFile file) async {
+    final bytes = await File(file.path).readAsBytes();
+    return base64Encode(bytes);
+  }
+
   Future<void> _handleSubmit() async {
     final title = widget.titleController.text.trim();
     final restName = widget.restNameController.text.trim();
@@ -82,11 +88,16 @@ class _AddPostState extends State<AddPost> {
     });
 
     try {
+      final encodedImages = <String>[];
+      for (final file in _selectedImages) {
+        encodedImages.add(await _encodeFile(file));
+      }
+
       final data = AddDetail()
         ..title = title
         ..restName = restName
         ..description = des
-        ..images = _selectedImages.map((file) => file.path).toList();
+        ..images = encodedImages;
       if (!mounted) return;
       Navigator.pop(context, data);
     } finally {
