@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:with_eat/core/geolocator_helper.dart';
 
 class AddDetail {
   String title = "";
@@ -11,6 +12,9 @@ class AddDetail {
   String description = "";
   List<String> images = [];
   DateTime reservedAt = DateTime.now();
+  double? latitude;
+  double? longitude;
+  String? address;
 }
 
 class AddPost extends StatefulWidget {
@@ -28,6 +32,9 @@ class _AddPostState extends State<AddPost> {
   final ImagePicker _picker = ImagePicker();
   final List<XFile> _selectedImages = [];
   bool _isSubmitting = false;
+  CurrentLocation? _currentLocation;
+  bool _isFetchingLocation = false;
+  String? _locationError;
 
   bool _validCheck(String title, String restName, String des) {
     if (title.isEmpty) {
@@ -71,6 +78,28 @@ class _AddPostState extends State<AddPost> {
     });
   }
 
+  Future<void> _fetchCurrentLocation() async {
+    setState(() {
+      _isFetchingLocation = true;
+      _locationError = null;
+    });
+    final location = await GeolocatorHelper.getCurrentLocation();
+    if (!mounted) return;
+    if (location == null) {
+      setState(() {
+        _currentLocation = null;
+        _locationError = '현재 위치 정보를 가져오지 못했습니다.';
+        _isFetchingLocation = false;
+      });
+      return;
+    }
+    setState(() {
+      _currentLocation = location;
+      _locationError = null;
+      _isFetchingLocation = false;
+    });
+  }
+
   Future<String> _encodeFile(XFile file) async {
     final bytes = await File(file.path).readAsBytes();
     return base64Encode(bytes);
@@ -82,6 +111,10 @@ class _AddPostState extends State<AddPost> {
     final des = widget.desController.text.trim();
 
     if (!_validCheck(title, restName, des)) return;
+    if (_currentLocation == null) {
+      showToast(context, '모임 위치를 등록해 주세요.');
+      return;
+    }
 
     setState(() {
       _isSubmitting = true;
@@ -97,7 +130,10 @@ class _AddPostState extends State<AddPost> {
         ..title = title
         ..restName = restName
         ..description = des
-        ..images = encodedImages;
+        ..images = encodedImages
+        ..latitude = _currentLocation!.latitude
+        ..longitude = _currentLocation!.longitude
+        ..address = _currentLocation!.address;
       if (!mounted) return;
       Navigator.pop(context, data);
     } finally {
@@ -210,14 +246,56 @@ class _AddPostState extends State<AddPost> {
           decoration: styleInputDecoration().copyWith(hintText: '하남돼지 방배역점'),
         ),
         SizedBox(height: 30),
-        Container(
-          height: 200,
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black12, width: 2),
-            borderRadius: BorderRadius.circular(10),
+        titleLabel("모임 위치"),
+        SizedBox(height: 5),
+        OutlinedButton.icon(
+          onPressed: _isFetchingLocation ? null : _fetchCurrentLocation,
+          icon: _isFetchingLocation
+              ? SizedBox(
+                  width: 16,
+                  height: 16,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : Icon(Icons.my_location),
+          label: Text(
+            _isFetchingLocation ? '위치를 확인 중...' : '현재 위치 가져오기',
           ),
-          child: Center(child: Text('지도 영역')),
         ),
+        if (_currentLocation != null) ...[
+          SizedBox(height: 8),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black12, width: 2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  _currentLocation!.address,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  '위도: ${_currentLocation!.latitude.toStringAsFixed(6)}',
+                  style: const TextStyle(color: Colors.black54),
+                ),
+                Text(
+                  '경도: ${_currentLocation!.longitude.toStringAsFixed(6)}',
+                  style: const TextStyle(color: Colors.black54),
+                ),
+              ],
+            ),
+          ),
+        ] else if (_locationError != null) ...[
+          SizedBox(height: 8),
+          Text(
+            _locationError!,
+            style: const TextStyle(color: Colors.red),
+          ),
+        ],
         SizedBox(height: 30),
         Container(
           height: 50,

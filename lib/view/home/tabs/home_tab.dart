@@ -48,6 +48,10 @@ class _HomeTabState extends State<HomeTab> {
   }
 
   PostDetail _fromAddDetail(AddDetail post, String nickname) {
+    final lat = post.latitude ?? 37.5665;
+    final lng = post.longitude ?? 126.9780;
+    final address = post.address ??
+        '위치 정보가 제공되지 않았습니다';
     return PostDetail(
       postid: DateTime.now().millisecondsSinceEpoch.toString(),
       hostId: nickname,
@@ -57,9 +61,9 @@ class _HomeTabState extends State<HomeTab> {
       description: post.description,
       restName: post.restName,
       location: Location(
-        lat: 37.5665,
-        lng: 126.9780,
-        address: '서울 서초구 방배천로2길 15 1층',
+        lat: lat,
+        lng: lng,
+        address: address,
       ),
       images: post.images,
       reservedAt: post.reservedAt,
