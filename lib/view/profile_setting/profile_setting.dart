@@ -77,8 +77,9 @@ class _ProfileSettingState extends State<ProfileSetting> {
                       style: TextButton.styleFrom(
                         splashFactory: NoSplash.splashFactory,
                       ),
-                      onPressed:
-                          _isFetchingLocation ? null : _fetchCurrentLocation,
+                      onPressed: _isFetchingLocation
+                          ? null
+                          : _fetchCurrentLocation,
                       child: _isFetchingLocation
                           ? Row(
                               mainAxisSize: MainAxisSize.min,
@@ -86,7 +87,9 @@ class _ProfileSettingState extends State<ProfileSetting> {
                                 SizedBox(
                                   width: 16,
                                   height: 16,
-                                  child: CircularProgressIndicator(strokeWidth: 2),
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
                                 ),
                                 SizedBox(width: 8),
                                 Text("현재 위치를 불러오는 중..."),
@@ -102,11 +105,6 @@ class _ProfileSettingState extends State<ProfileSetting> {
                         style: TextStyle(fontSize: 16, color: Colors.black87),
                       ),
                       SizedBox(height: 4),
-                      Text(
-                        '위도: ${_currentLocation!.latitude.toStringAsFixed(6)}\n경도: ${_currentLocation!.longitude.toStringAsFixed(6)}',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 14, color: Colors.black54),
-                      ),
                     ] else if (_locationError != null) ...[
                       SizedBox(height: 8),
                       Text(
