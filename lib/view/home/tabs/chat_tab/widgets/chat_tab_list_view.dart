@@ -30,7 +30,8 @@ class ChatTabListView extends StatelessWidget {
   }
 
   Future<void> _confirmDelete(BuildContext context, ChatRoom room) async {
-    final confirmed = await showDialog<bool>(
+    final confirmed =
+        await showDialog<bool>(
           context: context,
           builder: (ctx) => AlertDialog(
             title: const Text('채팅방 삭제'),
@@ -57,15 +58,15 @@ class ChatTabListView extends StatelessWidget {
     try {
       await _chatRepository.deleteRoom(room.id);
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('채팅방이 삭제되었습니다.')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('채팅방이 삭제되었습니다.')));
       }
     } catch (e) {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('채팅방 삭제 실패: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('채팅방 삭제 실패: $e')));
       }
     }
   }
@@ -84,7 +85,7 @@ class ChatTabListView extends StatelessWidget {
             return const Center(child: Text('채팅방이 없습니다.'));
           }
           return ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             itemCount: rooms.length,
             separatorBuilder: (_, __) => const Divider(height: 1),
             itemBuilder: (context, index) {
@@ -109,64 +110,74 @@ class _ChatRoomTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 90,
-      color: Colors.transparent,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return Card(
+      color: Color(0xFFFBF4EE),
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Container(
+          color: Colors.transparent,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
-              SizedBox.square(
-                dimension: 50,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: Image.asset('assets/person.png'),
-                ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 10),
+                  SizedBox.square(
+                    dimension: 50,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.asset('assets/person.png'),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    room.hostNickname.isEmpty ? '작성자' : room.hostNickname,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 4),
-              Text(
-                room.hostNickname.isEmpty ? '작성자' : room.hostNickname,
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      room.postTitle,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      room.lastMessage.isEmpty
+                          ? '아직 메시지가 없습니다.'
+                          : room.lastMessage,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.black54,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      ChatDetailTimeFormat(room.updatedAt),
+                      style: const TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-          const SizedBox(width: 20),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  room.postTitle,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  room.lastMessage.isEmpty ? '아직 메시지가 없습니다.' : room.lastMessage,
-                  style: const TextStyle(fontSize: 14, color: Colors.black54),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  ChatDetailTimeFormat(room.updatedAt),
-                  style: const TextStyle(fontSize: 12, color: Colors.grey),
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
