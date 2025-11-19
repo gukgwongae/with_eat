@@ -7,8 +7,13 @@ import 'package:with_eat/model/post_detail/post_detail.dart';
 class HomeListItem extends StatelessWidget {
   final PostDetail post;
   final VoidCallback? onTap;
-  const HomeListItem({Key? key, required this.post, this.onTap})
-    : super(key: key);
+  final VoidCallback? onLongPress;
+  const HomeListItem({
+    Key? key,
+    required this.post,
+    this.onTap,
+    this.onLongPress,
+  }) : super(key: key);
 
   String formatReservedAt(DateTime date) {
     return DateFormat('yy.MM.dd HH:mm').format(date);
@@ -22,6 +27,7 @@ class HomeListItem extends StatelessWidget {
       color: Color(0xFFFBF4EE),
       child: InkWell(
         onTap: onTap,
+        onLongPress: onLongPress,
         borderRadius: BorderRadius.circular(16),
         child: Padding(
           padding: const EdgeInsets.all(16),

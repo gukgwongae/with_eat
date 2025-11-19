@@ -57,6 +57,13 @@ class PostDetailRepository {
     }, SetOptions(merge: true));
   }
 
+  Future<void> delete(PostDetail post) async {
+    await _collection.doc(post.postid).delete();
+    if (post.chatroomId.isNotEmpty) {
+      await _firestore.collection('chatRooms').doc(post.chatroomId).delete();
+    }
+  }
+
   PostDetail _fromFirestore(String documentId, Map<String, dynamic> data) {
     final imagesRaw = data['images'];
     final images = imagesRaw is Iterable
