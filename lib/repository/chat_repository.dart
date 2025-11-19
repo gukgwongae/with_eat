@@ -52,4 +52,14 @@ class ChatRepository {
       'members': FieldValue.arrayUnion([userId]),
     }, SetOptions(merge: true));
   }
+
+  Future<void> deleteRoom(String chatRoomId) async {
+    final batch = _firestore.batch();
+    final messagesSnapshot = await _messagesRef(chatRoomId).get();
+    for (final doc in messagesSnapshot.docs) {
+      batch.delete(doc.reference);
+    }
+    batch.delete(_rooms.doc(chatRoomId));
+    await batch.commit();
+  }
 }

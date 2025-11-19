@@ -29,6 +29,47 @@ class ChatTabListView extends StatelessWidget {
     }
   }
 
+  Future<void> _confirmDelete(BuildContext context, ChatRoom room) async {
+    final confirmed = await showDialog<bool>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('채팅방 삭제'),
+            content: const Text('채팅방을 삭제하시겠습니까?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(false),
+                child: const Text('취소'),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.of(ctx).pop(true),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text('삭제'),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+    if (!confirmed) return;
+
+    try {
+      await _chatRepository.deleteRoom(room.id);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('채팅방이 삭제되었습니다.')),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('채팅방 삭제 실패: $e')),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -50,6 +91,7 @@ class ChatTabListView extends StatelessWidget {
               final room = rooms[index];
               return GestureDetector(
                 onTap: () => _openChat(context, room),
+                onLongPress: () => _confirmDelete(context, room),
                 child: _ChatRoomTile(room: room),
               );
             },
