@@ -44,9 +44,8 @@ class _WelcomePageState extends State<WelcomePage> {
               key: _formKey,
               child: ListView(
                 children: [
-                  SizedBox(height: 0),
                   Image.asset('assets/witheat.png'),
-                  SizedBox(height: 20),
+                  SizedBox(height: 10),
                   IdTextField(
                     controller: idController,
                     validator: ValidatorUtil.validatorId,
@@ -58,7 +57,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   ),
                   SizedBox(height: 10),
                   Align(alignment: Alignment.centerRight, child: Text("회원가입")),
-                  SizedBox(height: 80),
+                  SizedBox(height: 50),
                   Text("SNS 계정으로 시작하기"),
                   SizedBox(height: 20),
                   Row(

@@ -46,6 +46,9 @@ class _HomeTabState extends State<HomeTab> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        shape: CircleBorder(),
+        backgroundColor: Colors.red,
+        foregroundColor: Colors.white,
         onPressed: _addPost,
         child: const Icon(Icons.add),
       ),
